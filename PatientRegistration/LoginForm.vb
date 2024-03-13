@@ -7,12 +7,16 @@ Public Class LoginForm
     Private Sub OK_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OK.Click
         Try
             Me.Cursor = Cursors.WaitCursor
+            If TClass.IsValidEmail(UsernameTextBox.Text) = False Then
+                MsgBox("Please enter the Valid EMail Address", MsgBoxStyle.Information, "Notification")
+                Exit Sub
+            End If
             If UsernameTextBox.Text.Trim.Length = 0 Then
-                MsgBox("Please enter The User Name", MsgBoxStyle.Information, "Notification")
+                MsgBox("Please enter the EMail Address", MsgBoxStyle.Information, "Notification")
                 Exit Sub
             End If
             If PasswordTextBox.Text.Trim.Length = 0 Then
-                MsgBox("Please enter The Password", MsgBoxStyle.Information, "Notification")
+                MsgBox("Please enter the Password", MsgBoxStyle.Information, "Notification")
                 Exit Sub
             End If
             If TClass.IsValidPassword(PasswordTextBox.Text) = False Then
