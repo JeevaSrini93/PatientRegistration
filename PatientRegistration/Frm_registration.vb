@@ -66,6 +66,35 @@ letter, one number, one special character and total minimum 8 characters.", MsgB
                 MsgBox("Re-Enter password Not Match.", MsgBoxStyle.Information, "Notification")
                 Exit Sub
             End If
+
+
+            Dim connection As New SqlConnection(ConnectionString)
+
+            Dim command As New SqlCommand("select patientID,firstName,lastName,email,passwordHash from  PatientRegistration where email='" & Txt_email.Text & "'  ", connection)
+            command.CommandType = CommandType.Text
+
+
+
+            Dim adapter As New SqlDataAdapter(command)
+            Dim dataTable As New DataTable()
+
+            Try
+                connection.Open()
+                adapter.Fill(dataTable)
+                If dataTable.Rows.Count > 0 Then
+                    MsgBox("EMail Already Added.", MsgBoxStyle.Information, "Notification")
+                    Exit Sub
+                End If
+
+            Catch ex As Exception
+                MsgBox("Error retrieving patient data: " & ex.Message, MsgBoxStyle.Critical)
+            Finally
+                If connection.State = ConnectionState.Open Then
+                    connection.Close()
+                End If
+            End Try
+
+
             Dim firstName As String = Txt_firstname.Text
             Dim lastName As String = Txt_lastname.Text
             Dim email As String = Txt_email.Text
