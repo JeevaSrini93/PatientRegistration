@@ -50,12 +50,14 @@ Public Class New_appoinment
             End If
             Dim selectedDateTime As DateTime = CType(app_timeDateTimePicker.Value, DateTime)
             If selectedDateTime < DateTime.Now Then
-
-                MsgBox("Please select a future date and time.", MsgBoxStyle.Exclamation)
-                app_timeDateTimePicker.Value = DateTime.Now
-                Exit Sub
+                If CType(App_DateTimePicker.Value, DateTime) <= DateTime.Now Then
+                    MsgBox("Please select a future date and time.", MsgBoxStyle.Exclamation)
+                    app_timeDateTimePicker.Value = DateTime.Now
+                    Exit Sub
+                End If
             End If
-            If Txt_details.Text.Trim.Length = 0 Then
+
+                If Txt_details.Text.Trim.Length = 0 Then
                 MsgBox("Please Enter the Details", MsgBoxStyle.Information, "Notification")
                 Exit Sub
             End If
